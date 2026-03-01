@@ -63,7 +63,7 @@ const Token = () => {
             <div className="p-4 border text-center" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
               <svg className="w-5 h-5 mx-auto mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--color-text-muted)' }}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               <p className="text-xs mb-1" style={{ color: 'var(--color-text-muted)' }}>Royalty</p>
-              <p className="text-sm">1%</p>
+              <p className="text-sm">25%</p>
             </div>
           </div>
 

@@ -10,7 +10,7 @@ const Hero = () => {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-15">
         <img src={heroBg} alt="" className="w-full h-full object-cover" />
       </div>
 

@@ -48,7 +48,7 @@ const Story = () => {
             innovative tokenomics that pave the way for rightful compensation to IP holders.
           </p>
           <p className="text-sm italic" style={{ color: 'var(--color-text-muted)' }}>
-            1% of all trading fees are automatically allocated via Solana program to a designated
+            25% of all trading fees are automatically allocated via Solana program to a designated
             claimable wallet for authorized representatives of Paramount Global or Nickelodeon.
           </p>
         </div>

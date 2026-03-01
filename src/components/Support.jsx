@@ -76,7 +76,7 @@ const Support = () => {
               <div className="flex-1">
                 <p className="text-xs font-medium mb-2">Royalty Allocation</p>
                 <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
-                  A portion of revenue (1% of trading fees) is automatically allocated via Solana program to a 
+                  A portion of revenue (25% of trading fees) is automatically allocated via Solana program to a 
                   designated claimable wallet, accessible only by authorized representatives of Paramount Global 
                   or Nickelodeon upon verification. Full details and wallet address available upon request.
                 </p>

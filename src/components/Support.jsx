@@ -72,6 +72,9 @@ const Support = () => {
             <a href="https://x.com/i/communities/2027349547975057746" target="_blank" rel="noopener noreferrer" className="px-4 py-2 border text-xs transition-all hover:bg-white hover:text-black" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
               X Community
             </a>
+            <a href="https://discord.gg/NqnAVUVz" target="_blank" rel="noopener noreferrer" className="px-4 py-2 border text-xs transition-all hover:bg-white hover:text-black" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
+              Discord
+            </a>
           </div>
         </div>
       </div>

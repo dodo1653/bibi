@@ -51,7 +51,7 @@ const Navbar = () => {
       style={{
         backgroundColor: scrolled ? 'rgba(10, 10, 10, 0.85)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.06)' : 'none',
+        borderBottom: 'none',
       }}
     >
       <div className="terminal-container">

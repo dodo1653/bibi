@@ -6,7 +6,11 @@ const Support = () => {
   const ref = useRef(null)
 
   const USDT_ADDRESS = "TKwAgK9dFsFi2g43VW2kHdBs2XZDmZEgvu"
-  const TX_HASH = "fe51d9b3f6374b96aa357a5162e77f1af3380120c4f51c4917340e2c7ab8fdc3"
+  const TX_HASHES = [
+    "927f2c2546757018916dc6a2c755cbad9cef0b01706d440fdcde3c2781bec8d3",
+    "3e8d1f3b74dd96b4e557cf57afbfc534575cf69996c4ccc80cd3fab5b9baa9e6",
+    "e041d9461053bfa5c9ed5cd3e32b9a8517d7e6d569751eb5f1ad61bff7b4d46a"
+  ]
 
   const copyAddress = () => {
     navigator.clipboard.writeText(USDT_ADDRESS)
@@ -145,23 +149,25 @@ const Support = () => {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: 'var(--color-text-muted)' }}>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
-            <p className="label">Verified Transaction</p>
+            <p className="label">Verified Transactions</p>
           </div>
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border" style={{ borderColor: 'rgba(255,255,255,0.05)', backgroundColor: 'rgba(255,255,255,0.02)' }}>
-            <div>
-              <p className="text-xs mb-1" style={{ color: 'var(--color-text-muted)' }}>Proof of Aid Transfer</p>
-              <p className="text-xs font-mono" style={{ color: 'var(--color-text-secondary)' }}>{TX_HASH.slice(0, 32)}...</p>
+          {TX_HASHES.map((tx, index) => (
+            <div key={index} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border mb-3" style={{ borderColor: 'rgba(255,255,255,0.05)', backgroundColor: 'rgba(255,255,255,0.02)' }}>
+              <div>
+                <p className="text-xs mb-1" style={{ color: 'var(--color-text-muted)' }}>Proof of Aid Transfer {index + 1}</p>
+                <p className="text-xs font-mono" style={{ color: 'var(--color-text-secondary)' }}>{tx.slice(0, 32)}...</p>
+              </div>
+              <a 
+                href={`https://tronscan.org/#/transaction/${tx}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs transition-colors hover:text-white"
+                style={{ color: 'var(--color-text-muted)' }}
+              >
+                View on TronScan →
+              </a>
             </div>
-            <a 
-              href={`https://tronscan.org/#/transaction/${TX_HASH}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs transition-colors hover:text-white"
-              style={{ color: 'var(--color-text-muted)' }}
-            >
-              View on TronScan →
-            </a>
-          </div>
+          ))}
         </div>
 
         <div 

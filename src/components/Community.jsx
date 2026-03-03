@@ -46,7 +46,7 @@ const Community = () => {
             the belief that standing together creates something that cannot be ignored.
           </p>
           <a 
-            href="https://x.com/i/communities/2025543066569056377"
+            href="https://x.com/i/communities/2028186557698752563"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-xs transition-colors hover:text-white"

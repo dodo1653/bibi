@@ -64,7 +64,7 @@ const CTA = () => {
             View Chart
           </a>
           <a 
-            href="https://x.com/i/communities/2025543066569056377"
+            href="https://x.com/i/communities/2028186557698752563"
             target="_blank"
             rel="noopener noreferrer"
             className="px-6 py-3 border text-sm transition-all duration-300 hover:bg-white hover:text-black"

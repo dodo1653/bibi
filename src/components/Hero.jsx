@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import heroImage from '../assets/HBw_X0WbYAAGbq3.jpg'
+import heroImage from '../assets/favicon.png'
 
 const Hero = () => {
   const [loaded, setLoaded] = useState(false)
@@ -32,7 +32,7 @@ const Hero = () => {
           className="text-4xl sm:text-5xl md:text-6xl font-medium mb-6 transition-all duration-700 ease-out delay-100"
           style={{ opacity: loaded ? 1 : 0, transform: loaded ? 'translateY(0)' : 'translateY(10px)' }}
         >
-          $JAWAD
+          $BIBI
         </h1>
 
         <p 

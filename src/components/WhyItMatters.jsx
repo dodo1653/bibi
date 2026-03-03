@@ -75,7 +75,7 @@ const WhyItMatters = () => {
               But for them, there is no scrolling away. This is their reality. Every single day.
             </p>
             <p className="text-white">
-              $JAWAD isn't asking for your sympathy. It's asking for your acknowledgment—that 
+              $BIBI isn't asking for your sympathy. It's asking for your acknowledgment—that 
               these lives exist. That they matter. That we see them, even when the world looks away.
             </p>
           </div>

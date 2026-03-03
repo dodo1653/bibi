@@ -62,7 +62,7 @@ const Navbar = () => {
             className="text-base font-medium tracking-tight transition-all duration-300 hover:opacity-80"
             style={{ color: 'var(--color-text-primary)' }}
           >
-            $JAWAD
+            $BIBI
           </a>
 
           <div className="hidden md:flex items-center gap-1">

@@ -52,7 +52,7 @@ const CTA = () => {
             className="px-6 py-3 border text-sm transition-all duration-300 hover:bg-white hover:text-black"
             style={{ borderColor: 'rgba(255,255,255,0.2)' }}
           >
-            Buy $JAWAD
+            Buy $BIBI
           </a>
           <a 
             href={`https://dexscreener.com/solana/${CA}`}

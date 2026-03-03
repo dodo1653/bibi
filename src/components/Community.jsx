@@ -85,7 +85,7 @@ const Community = () => {
           className="text-center transition-all duration-700 ease-out"
           style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(15px)' : 'translateY(15px)', transitionDelay: '600ms' }}
         >
-          <p className="text-sm">One community. One purpose. One $JAWAD.</p>
+          <p className="text-sm">One community. One purpose. One $BIBI.</p>
         </div>
       </div>
     </section>

@@ -36,7 +36,7 @@ const Token = () => {
             className="transition-all duration-700 ease-out delay-100"
             style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(15px)' : 'translateY(15px)' }}
           >
-            <h2 className="text-2xl sm:text-3xl font-medium mb-8">$JAWAD</h2>
+            <h2 className="text-2xl sm:text-3xl font-medium mb-8">$BIBI</h2>
           </div>
 
           <div 

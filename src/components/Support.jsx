@@ -49,7 +49,7 @@ const Support = () => {
         >
           <h2 className="text-2xl sm:text-3xl font-medium mb-4">Direct Aid to Families</h2>
           <p className="max-w-lg" style={{ color: 'var(--color-text-secondary)' }}>
-            Beyond holding $JAWAD, you can directly support families in Gaza through verified relief campaigns. 
+            Beyond holding $BIBI, you can directly support families in Gaza through verified relief campaigns. 
             100% of donations go to those who need it most.
           </p>
         </div>

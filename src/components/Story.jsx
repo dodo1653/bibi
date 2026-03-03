@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import storyImage from '../assets/HBw_X0WbYAAGbq3.jpg'
+import storyImage from '../assets/favicon.png'
 
 const Story = () => {
   const [visible, setVisible] = useState(false)

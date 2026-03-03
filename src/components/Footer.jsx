@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="terminal-container">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <p className="text-lg font-medium mb-1">$JAWAD</p>
+            <p className="text-lg font-medium mb-1">$BIBI</p>
             <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>A symbol of remembrance</p>
           </div>
           

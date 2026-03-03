@@ -1,5 +1,5 @@
-import heroImage from '../assets/favicon.png'
 import { useEffect, useState } from 'react'
+import favicon from '../assets/favicon.png'
 
 const Hero = () => {
   const [loaded, setLoaded] = useState(false)
@@ -10,23 +10,23 @@ const Hero = () => {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0">
-        <img src={heroImage} alt="" className="w-full h-full object-cover object-center" style={{ filter: 'grayscale(80%) brightness(0.15) contrast(1.2)' }} />
+      <div className="absolute inset-0" style={{ backgroundColor: '#050510' }}>
+        <div className="absolute inset-0" style={{ 
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(0, 150, 255, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(0, 200, 255, 0.1) 0%, transparent 40%)' 
+        }} />
       </div>
-      
-      <div className="absolute inset-0 bg-gradient-to-b from-[#050510]/90 via-[#050510]/60 to-[#050510]" />
-      
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/8 rounded-full blur-[100px] pointer-events-none" />
-      
+
       <div className="relative z-10 text-center px-6 w-full max-w-2xl pt-20">
+        <div className="flex justify-center mb-8">
+          <img src={favicon} alt="$BIBI" className="w-32 h-32 rounded-full" style={{ filter: 'grayscale(50%) brightness(0.8)' }} />
+        </div>
+
         <h1 
           className="text-6xl sm:text-7xl md:text-8xl font-medium mb-6 tracking-tight"
           style={{ 
             background: 'linear-gradient(135deg, #00d4ff 0%, #0080ff 30%, #00d4ff 70%, #00d4ff 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
             filter: 'drop-shadow(0 0 30px rgba(0, 150, 255, 0.5))',
           }}
         >
@@ -34,7 +34,7 @@ const Hero = () => {
         </h1>
 
         <p className="text-base sm:text-lg mb-10 max-w-md mx-auto" style={{ color: 'rgba(0, 200, 255, 0.7)' }}>
-          The second AI Agent. Unapologetic. Unfiltered. Speaking truth like Netanyahu.
+          The first AI agent that talks like Netanyahu. Unapologetic. Unfiltered. Speaking truth to power.
         </p>
 
         <div className="flex flex-wrap justify-center gap-3">

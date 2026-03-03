@@ -1,26 +1,22 @@
-import { useEffect, useState } from 'react'
-import favicon from '../assets/favicon.png'
+import heroBg from '../assets/favicon.png'
 
 const Hero = () => {
-  const [loaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    setLoaded(true)
-  }, [])
-
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="absolute inset-0" style={{ backgroundColor: '#050510' }}>
-        <div className="absolute inset-0" style={{ 
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(0, 150, 255, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 80%, rgba(0, 200, 255, 0.1) 0%, transparent 40%)' 
-        }} />
+      <div className="absolute inset-0">
+        <img src={heroBg} alt="" className="w-full h-full object-cover object-center" style={{ filter: 'grayscale(80%) brightness(0.15) contrast(1.2)' }} />
       </div>
+      
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050510]/90 via-[#050510]/60 to-[#050510]" />
+      
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#050510]/50" />
+      
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/8 rounded-full blur-[100px] pointer-events-none" />
+      
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSJub25lIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InJnYmEoMCwyNTUsMjU1LDAuMDUpIi8+Cjwvc3ZnPg==')] opacity-30 pointer-events-none" />
 
       <div className="relative z-10 text-center px-6 w-full max-w-2xl pt-20">
-        <div className="flex justify-center mb-8">
-          <img src={favicon} alt="$BIBI" className="w-32 h-32 rounded-full" style={{ filter: 'grayscale(50%) brightness(0.8)' }} />
-        </div>
-
         <h1 
           className="text-6xl sm:text-7xl md:text-8xl font-medium mb-6 tracking-tight"
           style={{ 

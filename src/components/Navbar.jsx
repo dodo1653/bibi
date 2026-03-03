@@ -9,8 +9,9 @@ const Navbar = () => {
 
   const navItems = [
     { label: 'Home', href: '#hero' },
-    { label: 'Story', href: '#story' },
+    { label: 'Vision', href: '#story' },
     { label: 'Token', href: '#token' },
+    { label: 'Disclaimer', href: '#disclaimer' },
   ]
 
   return (
@@ -23,29 +24,25 @@ const Navbar = () => {
       <div 
         className="flex items-center gap-1 px-2 py-1.5 rounded-full backdrop-blur-xl"
         style={{ 
-          backgroundColor: 'rgba(5, 5, 16, 0.8)', 
+          backgroundColor: 'rgba(10, 10, 10, 0.6)', 
         }}
       >
         <a 
           href="#hero" 
-          className="px-4 py-1.5 text-sm font-semibold tracking-wide rounded-full transition-all duration-300"
-          style={{ 
-            background: 'linear-gradient(135deg, #00d4ff, #0080ff)', 
-            WebkitBackgroundClip: 'text', 
-            WebkitTextFillColor: 'transparent' 
-          }}
+          className="px-4 py-1.5 text-sm font-semibold tracking-wide rounded-full transition-all duration-300 hover:bg-amber-500/20"
+          style={{ background: 'linear-gradient(135deg, #fbbf24, #d97706)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
         >
           $BIBI
         </a>
         
-        <div className="w-px h-4 mx-1" style={{ backgroundColor: 'rgba(0, 200, 255, 0.1)' }} />
+        <div className="w-px h-4 mx-1" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
         
-        {navItems.map((item) => (
+        {navItems.map((item, i) => (
           <a
             key={item.label}
             href={item.href}
-            className="px-4 py-1.5 text-sm font-medium tracking-wide rounded-full transition-all duration-300 hover:text-cyan-400"
-            style={{ color: 'rgba(0, 200, 255, 0.6)' }}
+            className="px-4 py-1.5 text-sm font-medium tracking-wide rounded-full transition-all duration-300 hover:text-amber-400 hover:bg-amber-500/10"
+            style={{ color: 'rgba(254, 254, 254, 0.6)' }}
           >
             {item.label}
           </a>

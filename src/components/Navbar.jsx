@@ -1,80 +1,116 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const Navbar = () => {
-  const [visible, setVisible] = useState(false)
-  const [launchLive, setLaunchLive] = useState(true)
+  const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    setVisible(true)
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+      
+      const sections = ['home', 'token', 'about', 'community']
+      const scrollPosition = window.scrollY + 100
+
+      for (const section of sections) {
+        const element = document.getElementById(section)
+        if (element) {
+          const offsetTop = element.offsetTop
+          const offsetHeight = element.offsetHeight
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setActiveSection(section)
+            break
+          }
+        }
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const navItems = [
-    { label: 'Home', href: '#hero' },
-    { label: 'Vision', href: '#story' },
-    { label: 'Token', href: '#token' },
-    { label: 'Disclaimer', href: '#disclaimer' },
+  const navLinks = [
+    { href: '#token', label: 'Token' },
+    { href: '#about', label: 'About' },
+    { href: '#community', label: 'Community' },
   ]
 
+  const handleClick = (e, href) => {
+    e.preventDefault()
+    const element = document.querySelector(href)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+    setMenuOpen(false)
+  }
+
   return (
-    <>
-      {launchLive && (
-        <div className="fixed top-0 left-0 right-0 z-[60] py-3 text-center font-bold text-lg" style={{ 
-          background: 'linear-gradient(90deg, #16a34a, #22c55e)', 
-          color: 'white',
-          boxShadow: '0 0 30px rgba(34, 197, 94, 0.5), 0 4px 20px rgba(0,0,0,0.3)',
-          animation: 'glow 2s ease-in-out infinite alternate'
-        }}>
-          <span className="inline-flex items-center gap-3">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
-            </span>
-            <span className="tracking-wider">🎉 CA IS LIVE: 0x1234...5678</span>
-          </span>
-          <style>{`
-            @keyframes glow {
-              from { box-shadow: 0 0 20px rgba(34, 197, 94, 0.4), 0 4px 20px rgba(0,0,0,0.3); }
-              to { box-shadow: 0 0 40px rgba(34, 197, 94, 0.7), 0 4px 20px rgba(0,0,0,0.3); }
-            }
-          `}</style>
-        </div>
-      )}
-      <nav 
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50"
-        style={{ 
-          opacity: visible ? 1 : 0,
-          marginTop: launchLive ? '32px' : '0',
-        }}
-      >
-      <div 
-        className="flex items-center gap-1 px-2 py-1.5 rounded-full backdrop-blur-xl"
-        style={{ 
-          backgroundColor: 'rgba(10, 10, 10, 0.6)', 
-        }}
-      >
-        <a 
-          href="#hero" 
-          className="px-4 py-1.5 text-sm font-semibold tracking-wide rounded-full transition-all duration-300 hover:bg-amber-500/20"
-          style={{ background: 'linear-gradient(135deg, #fbbf24, #d97706)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
-        >
-          $KRABS
-        </a>
-        
-        <div className="w-px h-4 mx-1" style={{ backgroundColor: 'rgba(255,255,255,0.1)' }} />
-        
-        {navItems.map((item, i) => (
-          <a
-            key={item.label}
-            href={item.href}
-            className="px-4 py-1.5 text-sm font-medium tracking-wide rounded-full transition-all duration-300 hover:text-amber-400 hover:bg-amber-500/10"
-            style={{ color: 'rgba(254, 254, 254, 0.6)' }}
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      style={{
+        backgroundColor: scrolled ? 'rgba(10, 10, 10, 0.9)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(20px)' : 'none',
+      }}
+    >
+      <div className="terminal-container">
+        <div className="flex items-center justify-between h-20">
+          <a 
+            href="#home" 
+            onClick={(e) => handleClick(e, '#home')}
+            className="flex items-center gap-2 group"
           >
-            {item.label}
+            <span className="text-xl font-semibold tracking-tight transition-colors duration-300" style={{ color: '#ffffff' }}>
+              $CORTISOL
+            </span>
           </a>
-        ))}
+
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleClick(e, link.href)}
+                className="text-sm transition-colors duration-300"
+                style={{ 
+                  color: activeSection === link.href.slice(1) ? '#14b8a6' : 'rgba(255,255,255,0.5)',
+                }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <button
+            className="md:hidden p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{ color: '#ffffff' }}
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+              {menuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        {menuOpen && (
+          <div className="md:hidden py-4 border-t" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => handleClick(e, link.href)}
+                className="block py-3 text-sm"
+                style={{ color: 'rgba(255,255,255,0.6)' }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
-    </>
   )
 }
 

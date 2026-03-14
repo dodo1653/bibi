@@ -148,9 +148,8 @@ const Navbar = () => {
                 <span 
                   className="absolute inset-0 rounded-lg transition-all duration-700 ease-out"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(20, 184, 166, 0.12) 0%, rgba(20, 184, 166, 0.03) 100%)',
+                    background: 'rgba(255, 255, 255, 0.08)',
                     opacity: activeSection === link.href.slice(1) ? 1 : 0,
-                    boxShadow: activeSection === link.href.slice(1) ? '0 0 25px rgba(20, 184, 166, 0.15)' : 'none',
                   }}
                 />
                 <span className="relative z-10">{link.label}</span>

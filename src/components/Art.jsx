@@ -94,18 +94,7 @@ const Art = () => {
         }}
       />
 
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-[600px]">
-        <p 
-          className="text-sm mb-8"
-          style={{ 
-            fontFamily: '"Space Mono", monospace',
-            color: 'rgba(255, 255, 255, 0.4)',
-            letterSpacing: '0.15em',
-          }}
-        >
-          MORE VIRAL THAN YOU THINK
-        </p>
-
+      <div className="relative z-10 flex items-center justify-center min-h-[600px]">
         <video 
           autoPlay 
           loop 

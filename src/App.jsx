@@ -13,7 +13,7 @@ import CinematicTransition from './components/CinematicTransition'
 function App() {
   const audioRef = useRef(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [fadeIn, setFadeIn] = useState(false)
+  const [showPlaying, setShowPlaying] = useState(false)
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -47,14 +47,14 @@ function App() {
       audioRef.current.volume = 0
       audioRef.current.play().then(() => {
         setIsPlaying(true)
-        const fadeInterval = setInterval(() => {
+        setShowPlaying(true)
+        const fadeIn = () => {
           if (audioRef.current && audioRef.current.volume < 0.5) {
-            audioRef.current.volume = Math.min(0.5, audioRef.current.volume + 0.05)
-          } else {
-            clearInterval(fadeInterval)
-            setFadeIn(true)
+            audioRef.current.volume = Math.min(0.5, audioRef.current.volume + 0.02)
+            requestAnimationFrame(fadeIn)
           }
-        }, 100)
+        }
+        fadeIn()
       }).catch(() => {})
     }
   }, [])
@@ -68,9 +68,10 @@ function App() {
       audioRef.current.volume = 0
       audioRef.current.play().then(() => {
         setIsPlaying(true)
+        setShowPlaying(true)
         const fadeIn = () => {
           if (audioRef.current && audioRef.current.volume < 0.5) {
-            audioRef.current.volume = Math.min(0.5, audioRef.current.volume + 0.08)
+            audioRef.current.volume = Math.min(0.5, audioRef.current.volume + 0.02)
             requestAnimationFrame(fadeIn)
           }
         }
@@ -78,9 +79,10 @@ function App() {
       }).catch(() => {})
     } else {
       setIsPlaying(false)
+      setTimeout(() => setShowPlaying(false), 300)
       const fadeOut = () => {
         if (audioRef.current && audioRef.current.volume > 0) {
-          audioRef.current.volume = Math.max(0, audioRef.current.volume - 0.08)
+          audioRef.current.volume = Math.max(0, audioRef.current.volume - 0.02)
           requestAnimationFrame(fadeOut)
         } else if (audioRef.current) {
           audioRef.current.pause()
@@ -91,7 +93,17 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      {showPlaying && (
+        <div 
+          className="fixed inset-0 pointer-events-none z-0 transition-opacity duration-700"
+          style={{
+            opacity: isPlaying ? 0.15 : 0,
+            background: 'radial-gradient(ellipse at center, rgba(20, 184, 166, 0.3) 0%, transparent 70%)',
+          }}
+        />
+      )}
+      
       <audio ref={audioRef} src="/tiktok-audio.mp3" preload="auto" loop />
       
       <button

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 const Art = () => {
   const sectionRef = useRef(null)
   const [visible, setVisible] = useState(false)
+  const audioRef = useRef(null)
 
   const cardPositions = [
     { left: '5%', top: '22%', rotate: '-3deg' },
@@ -29,7 +30,16 @@ const Art = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true)
+          if (audioRef.current) {
+            audioRef.current.volume = 0
+            audioRef.current.play().catch(() => {})
+            audioRef.current.volume = 1
+          }
           observer.disconnect()
+        } else {
+          if (audioRef.current) {
+            audioRef.current.pause()
+          }
         }
       },
       { threshold: 0.1 }
@@ -74,6 +84,12 @@ const Art = () => {
       className="py-24 relative overflow-hidden min-h-[1400px]"
       style={{ backgroundColor: '#050505' }}
     >
+      <audio 
+        ref={audioRef} 
+        src="/realm-audio.mp3" 
+        preload="auto" 
+        loop
+      />
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 opacity-30" style={{
           background: 'radial-gradient(ellipse at 30% 20%, rgba(20, 184, 166, 0.15) 0%, transparent 50%)',

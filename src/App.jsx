@@ -48,9 +48,11 @@ function App() {
       audioRef.current.play().then(() => {
         setIsPlaying(true)
         setShowPlaying(true)
+        let vol = 0
         const fadeIn = () => {
-          if (audioRef.current && audioRef.current.volume < 0.5) {
-            audioRef.current.volume = Math.min(0.5, audioRef.current.volume + 0.02)
+          vol += 0.03
+          if (audioRef.current && vol < 0.5) {
+            audioRef.current.volume = vol
             requestAnimationFrame(fadeIn)
           }
         }
@@ -69,9 +71,11 @@ function App() {
       audioRef.current.play().then(() => {
         setIsPlaying(true)
         setShowPlaying(true)
+        let vol = 0
         const fadeIn = () => {
-          if (audioRef.current && audioRef.current.volume < 0.5) {
-            audioRef.current.volume = Math.min(0.5, audioRef.current.volume + 0.02)
+          vol += 0.03
+          if (audioRef.current && vol < 0.5) {
+            audioRef.current.volume = vol
             requestAnimationFrame(fadeIn)
           }
         }
@@ -79,13 +83,16 @@ function App() {
       }).catch(() => {})
     } else {
       setIsPlaying(false)
-      setTimeout(() => setShowPlaying(false), 300)
+      setTimeout(() => setShowPlaying(false), 400)
+      let vol = audioRef.current.volume
       const fadeOut = () => {
-        if (audioRef.current && audioRef.current.volume > 0) {
-          audioRef.current.volume = Math.max(0, audioRef.current.volume - 0.02)
+        vol -= 0.03
+        if (audioRef.current && vol > 0) {
+          audioRef.current.volume = vol
           requestAnimationFrame(fadeOut)
         } else if (audioRef.current) {
           audioRef.current.pause()
+          audioRef.current.volume = 0
         }
       }
       fadeOut()
@@ -96,12 +103,24 @@ function App() {
     <div className="min-h-screen relative">
       {showPlaying && (
         <div 
-          className="fixed inset-0 pointer-events-none z-0 transition-opacity duration-700"
+          className="fixed inset-0 pointer-events-none z-0"
           style={{
-            opacity: isPlaying ? 0.15 : 0,
-            background: 'radial-gradient(ellipse at center, rgba(20, 184, 166, 0.3) 0%, transparent 70%)',
+            opacity: isPlaying ? 1 : 0,
+            transition: 'opacity 0.8s ease',
           }}
-        />
+        >
+          <div className="absolute inset-0 animate-pulse-slow" style={{
+            background: 'radial-gradient(ellipse at 20% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 50%)',
+          }} />
+          <div className="absolute inset-0 animate-pulse-slow" style={{
+            animationDelay: '5s',
+            background: 'radial-gradient(ellipse at 80% 20%, rgba(236, 72, 153, 0.12) 0%, transparent 50%)',
+          }} />
+          <div className="absolute inset-0 animate-pulse-slow" style={{
+            animationDelay: '10s',
+            background: 'radial-gradient(ellipse at 50% 50%, rgba(20, 184, 166, 0.08) 0%, transparent 60%)',
+          }} />
+        </div>
       )}
       
       <audio ref={audioRef} src="/tiktok-audio.mp3" preload="auto" loop />

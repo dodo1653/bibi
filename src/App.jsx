@@ -13,7 +13,6 @@ import CinematicTransition from './components/CinematicTransition'
 function App() {
   const audioRef = useRef(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [audioOpacity, setAudioOpacity] = useState(0)
 
   useEffect(() => {
     const script = document.createElement('script')
@@ -47,10 +46,9 @@ function App() {
       audioRef.current.volume = 0
       audioRef.current.play().then(() => {
         setIsPlaying(true)
-        setAudioOpacity(1)
         let vol = 0
         const fadeIn = () => {
-          vol += 0.01
+          vol += 0.015
           if (audioRef.current && vol < 0.5) {
             audioRef.current.volume = vol
             requestAnimationFrame(fadeIn)
@@ -70,10 +68,9 @@ function App() {
       audioRef.current.volume = 0
       audioRef.current.play().then(() => {
         setIsPlaying(true)
-        setAudioOpacity(1)
         let vol = 0
         const fadeIn = () => {
-          vol += 0.01
+          vol += 0.015
           if (audioRef.current && vol < 0.5) {
             audioRef.current.volume = vol
             requestAnimationFrame(fadeIn)
@@ -83,10 +80,9 @@ function App() {
       }).catch(() => {})
     } else {
       setIsPlaying(false)
-      setAudioOpacity(0)
       let vol = audioRef.current.volume
       const fadeOut = () => {
-        vol -= 0.01
+        vol -= 0.015
         if (audioRef.current && vol > 0) {
           audioRef.current.volume = vol
           requestAnimationFrame(fadeOut)
@@ -100,29 +96,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen relative">
-      <div 
-        className="fixed inset-0 pointer-events-none transition-opacity duration-[2500ms] ease-out"
-        style={{
-          opacity: audioOpacity,
-          background: 'radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.06) 0%, rgba(20, 184, 166, 0.02) 40%, transparent 70%)',
-        }}
-      />
-      <div 
-        className="fixed inset-0 pointer-events-none transition-opacity duration-[2500ms] ease-out"
-        style={{
-          opacity: audioOpacity * 0.5,
-          background: 'radial-gradient(circle at 30% 70%, rgba(168, 85, 247, 0.04) 0%, transparent 50%)',
-        }}
-      />
-      <div 
-        className="fixed inset-0 pointer-events-none transition-opacity duration-[2500ms] ease-out"
-        style={{
-          opacity: audioOpacity * 0.3,
-          background: 'radial-gradient(circle at 70% 30%, rgba(236, 72, 153, 0.03) 0%, transparent 50%)',
-        }}
-      />
-      
+    <div className="min-h-screen">
       <audio ref={audioRef} src="/tiktok-audio.mp3" preload="auto" loop />
       
       <button

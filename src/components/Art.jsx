@@ -38,7 +38,15 @@ const Art = () => {
           observer.disconnect()
         } else {
           if (audioRef.current) {
-            audioRef.current.pause()
+            const fadeOut = () => {
+              if (audioRef.current && audioRef.current.volume > 0) {
+                audioRef.current.volume = Math.max(0, audioRef.current.volume - 0.1)
+                setTimeout(fadeOut, 100)
+              } else if (audioRef.current) {
+                audioRef.current.pause()
+              }
+            }
+            fadeOut()
           }
         }
       },

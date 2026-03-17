@@ -12,7 +12,6 @@ import CinematicTransition from './components/CinematicTransition'
 
 function App() {
   const audioRef = useRef(null)
-  const audioUrlRef = useRef(null)
   const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect(() => {
@@ -21,16 +20,6 @@ function App() {
     script.async = true
     script.charset = 'utf-8'
     document.body.appendChild(script)
-
-    fetch('/tiktok-audio.mp3')
-      .then(res => res.blob())
-      .then(blob => {
-        audioUrlRef.current = URL.createObjectURL(blob)
-        if (audioRef.current) {
-          audioRef.current.src = audioUrlRef.current
-        }
-      })
-      .catch(() => {})
 
     const lenis = new Lenis({
       duration: 1.2,
@@ -49,32 +38,54 @@ function App() {
 
     return () => {
       lenis.destroy()
-      if (audioUrlRef.current) {
-        URL.revokeObjectURL(audioUrlRef.current)
-      }
     }
   }, [])
 
   const playAudio = () => {
     if (!audioRef.current) return
-    if (audioRef.current.paused) {
-      audioRef.current.volume = 0.5
-      audioRef.current.play().then(() => {
-        setIsPlaying(true)
-      }).catch(() => {})
-    }
+    audioRef.current.volume = 0.3
+    audioRef.current.play().then(() => {
+      setIsPlaying(true)
+      let vol = 0.3
+      const fadeIn = () => {
+        vol += 0.04
+        if (audioRef.current && vol < 0.5) {
+          audioRef.current.volume = vol
+          requestAnimationFrame(fadeIn)
+        }
+      }
+      fadeIn()
+    }).catch(() => {})
   }
 
   const pauseAudio = () => {
     if (!audioRef.current) return
     setIsPlaying(false)
-    audioRef.current.pause()
-    audioRef.current.currentTime = 0
+    let vol = audioRef.current.volume
+    const fadeOut = () => {
+      vol -= 0.06
+      if (audioRef.current && vol > 0) {
+        audioRef.current.volume = vol
+        requestAnimationFrame(fadeOut)
+      } else if (audioRef.current) {
+        audioRef.current.pause()
+        audioRef.current.volume = 0
+      }
+    }
+    fadeOut()
+  }
+
+  const toggleAudio = () => {
+    if (isPlaying) {
+      pauseAudio()
+    } else {
+      playAudio()
+    }
   }
 
   return (
     <div className="min-h-screen">
-      <audio ref={audioRef} loop />
+      <audio ref={audioRef} src="/tiktok-audio.mp3" preload="auto" loop />
       
       <CinematicTransition />
       <Navbar isPlaying={isPlaying} onPlay={playAudio} onPause={pauseAudio} />

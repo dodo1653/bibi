@@ -12,6 +12,7 @@ import CinematicTransition from './components/CinematicTransition'
 
 function App() {
   const audioRef = useRef(null)
+  const audioUrlRef = useRef(null)
   const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect(() => {
@@ -21,9 +22,12 @@ function App() {
     script.charset = 'utf-8'
     document.body.appendChild(script)
 
-    if (audioRef.current) {
-      audioRef.current.load()
-    }
+    fetch('/tiktok-audio.mp3')
+      .then(res => res.blob())
+      .then(blob => {
+        audioUrlRef.current = URL.createObjectURL(blob)
+      })
+      .catch(() => {})
 
     const lenis = new Lenis({
       duration: 1.2,
@@ -42,11 +46,16 @@ function App() {
 
     return () => {
       lenis.destroy()
+      if (audioUrlRef.current) {
+        URL.revokeObjectURL(audioUrlRef.current)
+      }
     }
   }, [])
 
   const playAudio = () => {
     if (!audioRef.current) return
+    const src = audioUrlRef.current || '/tiktok-audio.mp3'
+    audioRef.current.src = src
     audioRef.current.volume = 0.5
     audioRef.current.play().then(() => {
       setIsPlaying(true)
@@ -60,17 +69,9 @@ function App() {
     audioRef.current.volume = 0
   }
 
-  const toggleAudio = () => {
-    if (isPlaying) {
-      pauseAudio()
-    } else {
-      playAudio()
-    }
-  }
-
   return (
     <div className="min-h-screen">
-      <audio ref={audioRef} src="/tiktok-audio.mp3" preload="auto" loop />
+      <audio ref={audioRef} loop />
       
       <CinematicTransition />
       <Navbar isPlaying={isPlaying} onPlay={playAudio} onPause={pauseAudio} />

@@ -8,6 +8,7 @@ const Navbar = ({ isPlaying, onPlay, onPause }) => {
   const [marketCap, setMarketCap] = useState('$0')
   const [isHovering, setIsHovering] = useState(false)
   const [musicHover, setMusicHover] = useState(false)
+  const [hoveredLink, setHoveredLink] = useState(null)
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -127,6 +128,12 @@ const Navbar = ({ isPlaying, onPlay, onPause }) => {
     }
   }
 
+  const isLinkActive = (link) => {
+    if (link.external) return false
+    const sectionId = link.href.slice(1)
+    return activeSection === sectionId
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
       <div className="mx-auto max-w-xl px-4 pt-6">
@@ -177,24 +184,35 @@ const Navbar = ({ isPlaying, onPlay, onPause }) => {
           <div className="hidden md:flex items-center gap-1 h-full">
             {navLinks.map((link) => {
               const isExternal = link.external
+              const isHovered = hoveredLink === link.href
               const content = (
                 <div
                   key={link.href}
                   onClick={(e) => !isExternal && handleClick(e, link.href)}
-                  className="relative px-3 flex items-center h-8 text-[9px] font-bold uppercase tracking-[0.15em] rounded-lg transition-all duration-300 hover:text-white cursor-pointer"
+                  onMouseEnter={() => setHoveredLink(link.href)}
+                  onMouseLeave={() => setHoveredLink(null)}
+                  className="relative px-3 flex items-center h-8 text-[9px] font-bold uppercase tracking-[0.15em] rounded-lg transition-all duration-300 cursor-pointer group"
                   style={{ 
-                    color: activeSection === link.href.slice(1) ? '#ffffff' : 'rgba(255,255,255,0.3)',
+                    color: isHovered ? '#ffffff' : 'rgba(255,255,255,0.35)',
                     fontFamily: '"Space Mono", monospace',
+                    background: isHovered ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
                   }}
                 >
+                  <span className="relative z-10">{link.label}</span>
                   <span 
-                    className="absolute inset-0 rounded-lg transition-all duration-700 ease-out"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      opacity: activeSection === link.href.slice(1) ? 1 : 0,
+                    className="absolute bottom-1 left-3 right-3 h-[1px] transition-all duration-300"
+                    style={{ 
+                      background: 'linear-gradient(90deg, transparent, #14b8a6, transparent)',
+                      opacity: isHovered ? 1 : 0,
+                      transform: isHovered ? 'scaleX(1)' : 'scaleX(0)',
                     }}
                   />
-                  <span className="relative z-10">{link.label}</span>
+                  <span 
+                    className="absolute inset-0 rounded-lg transition-all duration-300"
+                    style={{ 
+                      boxShadow: isHovered ? '0 0 12px rgba(20, 184, 166, 0.15), inset 0 0 8px rgba(20, 184, 166, 0.05)' : 'none',
+                    }}
+                  />
                 </div>
               )
               
@@ -213,8 +231,8 @@ const Navbar = ({ isPlaying, onPlay, onPause }) => {
               onMouseEnter={handleMusicEnter}
               onMouseLeave={handleMusicLeave}
               style={{
-                background: isPlaying ? 'rgba(20, 184, 166, 0.1)' : 'rgba(255, 255, 255, 0.02)',
-                border: `1px solid ${isPlaying ? 'rgba(20, 184, 166, 0.2)' : 'rgba(255, 255, 255, 0.05)'}`,
+                background: isPlaying ? 'rgba(20, 184, 166, 0.12)' : 'rgba(255, 255, 255, 0.02)',
+                border: `1px solid ${isPlaying ? 'rgba(20, 184, 166, 0.25)' : 'rgba(255, 255, 255, 0.05)'}`,
               }}
             >
               {isPlaying ? (
@@ -225,8 +243,11 @@ const Navbar = ({ isPlaying, onPlay, onPause }) => {
                 </div>
               ) : (
                 <svg 
-                  className="w-3 h-3 transition-all duration-300 opacity-30 group-hover:opacity-100" 
-                  style={{ color: 'white' }}
+                  className="w-3 h-3 transition-all duration-300" 
+                  style={{ 
+                    color: musicHover ? '#14b8a6' : 'rgba(255,255,255,0.3)',
+                    opacity: musicHover ? 1 : 0.5,
+                  }}
                   fill="none" 
                   viewBox="0 0 24 24" 
                   stroke="currentColor" 
@@ -239,7 +260,7 @@ const Navbar = ({ isPlaying, onPlay, onPause }) => {
                 className="text-[9px] font-bold uppercase tracking-[0.2em] overflow-hidden transition-all duration-500"
                 style={{ 
                   fontFamily: '"Space Mono", monospace',
-                  color: isPlaying ? '#2dd4bf' : 'rgba(255,255,255,0.3)',
+                  color: isPlaying ? '#14b8a6' : musicHover ? 'rgba(255,255,255,0.5)' : 'rgba(255,255,255,0.3)',
                   width: musicHover || isPlaying ? '36px' : '0',
                   opacity: musicHover || isPlaying ? 1 : 0,
                 }}

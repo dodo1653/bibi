@@ -105,23 +105,7 @@ const Studio = () => {
     <div className="min-h-screen bg-[#050505] text-white flex flex-col font-['Space_Mono'] relative">
       <Navbar />
       
-      {/* Beta / Locked Overlay */}
-      <div className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none">
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="relative px-8 py-4 rounded-2xl bg-black border border-teal-500/30 shadow-[0_0_50px_rgba(20,184,166,0.2)] flex flex-col items-center gap-2 pointer-events-auto"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
-            <span className="text-[11px] font-black uppercase tracking-[0.4em] text-teal-500">Protocol_Studio_Beta</span>
-          </div>
-          <p className="text-[9px] text-white/40 uppercase tracking-[0.2em] font-bold">Access Restricted // Development In Progress</p>
-        </motion.div>
-      </div>
-
-      <main className="flex-1 flex flex-col md:flex-row pt-24 px-6 pb-12 gap-8 max-w-7xl mx-auto w-full opacity-40 grayscale-[0.5] pointer-events-none">
+      <main className="flex-1 flex flex-col md:flex-row pt-24 px-6 pb-12 gap-8 max-w-7xl mx-auto w-full">
         
         <div className="w-full md:w-80 flex flex-col gap-6">
           <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 backdrop-blur-xl">

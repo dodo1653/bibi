@@ -183,15 +183,15 @@ const Navbar = ({ isPlaying, onPlay, onPause }) => {
           {/* Center: Links */}
           <div className="hidden md:flex items-center gap-1 h-full">
             {navLinks.map((link) => {
-              const isExternal = link.external
               const isHovered = hoveredLink === link.href
               const content = (
-                <div
+                <a
                   key={link.href}
-                  onClick={(e) => !isExternal && handleClick(e, link.href)}
+                  href={link.href.startsWith('/') ? link.href : '#'}
+                  onClick={(e) => handleClick(e, link.href)}
                   onMouseEnter={() => setHoveredLink(link.href)}
                   onMouseLeave={() => setHoveredLink(null)}
-                  className="relative px-3 flex items-center h-8 text-[9px] font-bold uppercase tracking-[0.15em] rounded-lg transition-all duration-300 cursor-pointer group"
+                  className="relative px-3 flex items-center h-8 text-[9px] font-bold uppercase tracking-[0.15em] rounded-lg transition-all duration-300 cursor-pointer no-underline"
                   style={{ 
                     color: isHovered ? '#ffffff' : 'rgba(255,255,255,0.35)',
                     fontFamily: '"Space Mono", monospace',
@@ -208,17 +208,42 @@ const Navbar = ({ isPlaying, onPlay, onPause }) => {
                     }}
                   />
                   <span 
-                    className="absolute inset-0 rounded-lg transition-all duration-300"
+                    className="absolute inset-0 rounded-lg transition-all duration-300 pointer-events-none"
                     style={{ 
                       boxShadow: isHovered ? '0 0 12px rgba(20, 184, 166, 0.15), inset 0 0 8px rgba(20, 184, 166, 0.05)' : 'none',
                     }}
                   />
-                </div>
+                </a>
               )
               
-              return isExternal ? (
+              return link.external ? (
                 <Link key={link.href} to={link.href} className="no-underline flex items-center">
-                  {content}
+                  <span 
+                    onMouseEnter={() => setHoveredLink(link.href)}
+                    onMouseLeave={() => setHoveredLink(null)}
+                    className="relative px-3 flex items-center h-8 text-[9px] font-bold uppercase tracking-[0.15em] rounded-lg transition-all duration-300 cursor-pointer"
+                    style={{ 
+                      color: isHovered ? '#ffffff' : 'rgba(255,255,255,0.35)',
+                      fontFamily: '"Space Mono", monospace',
+                      background: isHovered ? 'rgba(255, 255, 255, 0.08)' : 'transparent',
+                    }}
+                  >
+                    <span className="relative z-10">{link.label}</span>
+                    <span 
+                      className="absolute bottom-1 left-3 right-3 h-[1px] transition-all duration-300"
+                      style={{ 
+                        background: 'linear-gradient(90deg, transparent, #14b8a6, transparent)',
+                        opacity: isHovered ? 1 : 0,
+                        transform: isHovered ? 'scaleX(1)' : 'scaleX(0)',
+                      }}
+                    />
+                    <span 
+                      className="absolute inset-0 rounded-lg transition-all duration-300 pointer-events-none"
+                      style={{ 
+                        boxShadow: isHovered ? '0 0 12px rgba(20, 184, 166, 0.15), inset 0 0 8px rgba(20, 184, 166, 0.05)' : 'none',
+                      }}
+                    />
+                  </span>
                 </Link>
               ) : content
             })}
